@@ -5,11 +5,16 @@
  */
 import React from 'react';
 import styled from 'styled-components';
-import i18n from './i18n';
-import { stringify } from 'querystring';
-
-
-
+import {Label,Glyphicon,Jumbotron,Image,Grid,Row,Col,ListGroup, ListGroupItem} from 'react-bootstrap/lib';
+import Chip from 'material-ui/Chip';
+import Checkbox from 'material-ui/Checkbox';
+import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
+import Done from 'material-ui/svg-icons/action/done';
+import HighlightOff from 'material-ui/svg-icons/action/highlight-off';
+import CircularProgress from 'material-ui/CircularProgress';
+import { constants } from 'zlib';
+import Button from 'react-bootstrap-button-loader';
 export default class RoomListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   // Since state and props are static,
@@ -19,124 +24,142 @@ export default class RoomListPage extends React.Component { // eslint-disable-li
   }
 
   render() {
-    var output = {}
-    var dd = Object.keys(i18n);
-    dd.forEach((key,index)=>{
-        let current = i18n[key]
-        let cuu = {}
-        let keys = Object.keys(current.en)
-        keys.forEach((keyy,index)=>{
-            cuu[keyy] = {
-                en : current.en[keyy],
-                vi :  current.vi[keyy],
-            }
-        })
-        output[key] = cuu
-    })
-    var dddd =JSON.stringify(output)
     return (
-      <RoomList>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <textarea>{dddd}</textarea>
-      </RoomList>
+      <ListGroup>
+          <ListGroupItem><Room/></ListGroupItem>
+          <ListGroupItem><Room/></ListGroupItem>
+          <ListGroupItem><Room/></ListGroupItem>
+      </ListGroup>
+       
+      
     );
   }
-}
+};
 
 class Room extends React.Component {
     render() {
         return (
-            <RoomItemContainer>
-                <RoomAvatar/>
-                <RoomDesc/>
-                <RoomPrice>
-                    <RoomName>RM210</RoomName>
-                    <RoomPriceNumber>$50 Per night</RoomPriceNumber>
-                    <BookButtom>Book Now</BookButtom>
-                </RoomPrice>
-            </RoomItemContainer>
+            <Itemwrapper>
+                <ItemImg/>
+                <ItemDesc/>
+                <ItemCheck>
+                    <Checkbox
+                        checkedIcon={<Done />}
+                        uncheckedIcon={<div/>}
+                        
+                        label={<Addbutton/>}
+                        onCheck={()=>{alert('123')}}
+                    />
+                </ItemCheck>
+                <Button loading={this.state.loading}>Press me!</Button>
+                <div style={{clear:'both'}}></div>
+            </Itemwrapper>
+            
         )
     }
 }
-
-
-const RoomName = styled.div`
-    text-align: center;
-    font-weight: 600;
-    color: #403636;
-    font-size: 20px;
-    height: 20px;
-    line-height: 20px;
-    margin-top: 20px;
+//function
+    
+//Component
+const Img=({className,children})=>{
+    return(
+        <div className={className}>
+            <Image src='https://cdn.tgdd.vn/Products/Images/42/114115/iphone-x-64gb-h1-400x460-400x460.png' thumbnail></Image>
+        </div>
+    )
+};
+const Desc=({className,children})=>{
+    return(
+        <div className={className}>
+            <a href='#'><p>IPHONE X 64GB</p></a> 
+            <Detail/>
+            <div style={{display:'flex',marginTop:'10px'}}>
+                <Tag name='Phone'/>
+                <Tag name='IPhone'/>
+                <Tag name='IPhone X '/>   
+             </div>
+        </div>
+        
+    );
+};
+const Detail=({className,children})=>{
+    return(
+        <div className={className} style={{lineHeight: '25px',fontSize: '12px'}}>
+            <div>
+                <Label bsStyle='success'>
+                    <Glyphicon glyph='glyphicon glyphicon-map-marker'/> Dia diem nhan hang :
+                </Label>  {desc.addr.get}
+            </div>
+            <div>
+                <Label bsStyle='success'>
+                    <Glyphicon glyph='glyphicon glyphicon-map-marker'/> Dia diem giao hang :
+                </Label>  {desc.addr.send}
+            </div>
+            <div>
+                <Label bsStyle='warning'>
+                    <Glyphicon glyph='glyphicon glyphicon-time'/> Thoi gian yeu cau :
+                </Label>  {desc.time}
+            </div>
+        </div> 
+    )
+}
+const Tag=(props)=>{
+    return(
+        <Chip className={props.className} style={Chipstyle} labelStyle={Chipstyle.font} onClick={()=>{alert('123');}}>{props.name}</Chip>
+    )
+};
+const Addbutton=()=>{
+    return(
+            <RaisedButton style={{
+                 minWidth: '61px',
+                 marginLeft: '30px',
+            }}>Add</RaisedButton>
+    )
+}
+const Cir=()=>{
+    return(
+        <CircularProgress/>
+    )
+};
+//Style
+     const Chipstyle={ 
+        marginRight:'5px',
+        height: 'fit-content',
+        font : {
+            fontSize:'10px',
+            lineHeight: '10px',
+            padding: '6px 10px',
+        }
+    }  
+     ;
+    const Itemwrapper= styled.div`
+        padding: 5px 10px;
+        box-shadow: 2px 3px 10px #ccc;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    
 `;
+    const ItemImg=styled(Img)`
+        width:170px;
+        float :left;
+        padding:10px;
+    `;
+    const ItemDesc=styled(Desc)`
+        float:left;
+        width: 55%;
+        word-wrap: break-word;
+        padding: 10px 15px;
+        text-align: left;
+    `;
+    const ItemCheck=styled.div`
+        width:auto;
+        float:left;
+        margin-top: 40px;
+        text-align:center;
+    `;
 
-const RoomPriceNumber = styled.div`
-    text-align: center;
-    color: #403636;
-    font-size: 14px;
-    height: 20px;
-    line-height: 20px;
-    color: #677186;
-`;
 
-const BookButtom = styled.div`
-    text-align: center;
-    font-weight: 600;
-    color: #403636;
-    font-size: 24px;
-    height: 30px;
-    line-height: 30px;
-`;
-
-
-
-const RoomList = styled.div`
-    padding-bottom: 50px;
-`;
-
-const RoomAvatar = styled.div`
-   width : 200px;
-   height : 100%;
-   background-size : cover;
-   display : inline-block;
-   background-image : url("http://lenscratch.com/wp-content/uploads/2015/05/Hotel-Paris-Room-1134532.jpg");
-`;
-
-const RoomPrice = styled.div`
-    position: absolute;
-    cursor: pointer;
-    width : 200px;
-    height : 100%;
-    display : inline-block;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 0px 1px;
-    &:hover  {
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 2px 2px;
-    }
-    &:hover ${BookButtom} {
-        color : rgb(33, 150, 243);
-    }
-`;
-
-const RoomDesc = styled.div`
-   width : calc(100% - 400px);
-   height : 100%;
-   display : inline-block;
-`;
-
-const RoomItemContainer = styled.div`
-  height: 120px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 2px 2px;
-  margin: 15px 0px 5px 2.5px;
-  width: calc(100% - 5px);
-  position : relative;
-`;
-
+    const desc= {addr :{get:'Lim Tower, 9-11 Đường Tôn Đức Thắng, Bến Nghé, Quận 1, Hồ Chí Minh'
+    ,send:'1 Nơ Trang Long, Phường 7, Bình Thạnh, Hồ Chí Minh, Việt Nam'},
+    time: '6h 30p',
+        };
