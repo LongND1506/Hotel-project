@@ -36,3 +36,4 @@ export default function* githubData() {
   // It will be cancelled automatically on component unmount
   yield takeLatest(LOAD_REPOS, getRepos);
 }
+

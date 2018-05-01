@@ -5,9 +5,7 @@
  */
 import React from 'react';
 import styled from 'styled-components';
-import i18n from './i18n';
 import { stringify } from 'querystring';
-
 
 
 export default class RoomListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -19,55 +17,51 @@ export default class RoomListPage extends React.Component { // eslint-disable-li
   }
 
   render() {
-    var output = {}
-    var dd = Object.keys(i18n);
-    dd.forEach((key,index)=>{
-        let current = i18n[key]
-        let cuu = {}
-        let keys = Object.keys(current.en)
-        keys.forEach((keyy,index)=>{
-            cuu[keyy] = {
-                en : current.en[keyy],
-                vi :  current.vi[keyy],
-            }
-        })
-        output[key] = cuu
-    })
-    var dddd =JSON.stringify(output)
     return (
-      <RoomList>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <Room/>
-        <textarea>{dddd}</textarea>
-      </RoomList>
+      <RoomListPageContainer>
+        <RoomFilterBox />
+        <RoomList>
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+          <Room />
+        </RoomList>
+      </RoomListPageContainer>
     );
   }
 }
 
 class Room extends React.Component {
-    render() {
-        return (
-            <RoomItemContainer>
-                <RoomAvatar/>
-                <RoomDesc/>
-                <RoomPrice>
-                    <RoomName>RM210</RoomName>
-                    <RoomPriceNumber>$50 Per night</RoomPriceNumber>
-                    <BookButtom>Book Now</BookButtom>
-                </RoomPrice>
-            </RoomItemContainer>
-        )
-    }
+  render() {
+    return (
+      <RoomItemContainer>
+        <RoomAvatar />
+        <RoomDesc>
+          <HotelName>Victoria Hotel</HotelName>
+        </RoomDesc>
+        <RoomPrice>
+          <RoomName>RM210</RoomName>
+          <RoomPriceNumber>$50 Per night</RoomPriceNumber>
+          <BookButtom>Book Now</BookButtom>
+        </RoomPrice>
+      </RoomItemContainer>
+    );
+  }
 }
 
+
+const HotelName = styled.div`
+  white-space: nowrap;
+  font-size: 20px;
+  color: #37454d;
+  font-weight: 700;
+`;
 
 const RoomName = styled.div`
     text-align: center;
@@ -97,14 +91,30 @@ const BookButtom = styled.div`
     line-height: 30px;
 `;
 
+const RoomListPageContainer = styled.div`
+`;
+
+const RoomFilterBox = styled.div`
+  display: inline-block;
+  width: 250px;
+  vertical-align: top;
+  height : 768px;
+  margin-top: 15px;
+  box-shadow: 0 1px 4px rgba(41,51,57,.5);
+  margin-left: 2px;
+`;
 
 
 const RoomList = styled.div`
     padding-bottom: 50px;
+    display: inline-block;
+    width : calc(100% - 254px);
+    padding-left : 15px;
+    padding-right: 15px;
 `;
 
 const RoomAvatar = styled.div`
-   width : 200px;
+   width : 315px;
    height : 100%;
    background-size : cover;
    display : inline-block;
@@ -117,26 +127,25 @@ const RoomPrice = styled.div`
     width : 200px;
     height : 100%;
     display : inline-block;
-    box-shadow: rgba(0, 0, 0, 0.12) 0px 0px 0px, rgba(0, 0, 0, 0.12) 0px 0px 1px;
-    &:hover  {
-        box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 2px 2px;
-    }
     &:hover ${BookButtom} {
         color : rgb(33, 150, 243);
     }
 `;
 
 const RoomDesc = styled.div`
-   width : calc(100% - 400px);
-   height : 100%;
-   display : inline-block;
+    width: calc(100% - 515px);
+    height: 100%;
+    display: inline-block;
+    vertical-align: top;
+    padding-left: 10px;
 `;
 
 const RoomItemContainer = styled.div`
-  height: 120px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 2px 2px;
+  height: 200px;
+  box-shadow: 0 1px 4px rgba(41,51,57,.5);
   margin: 15px 0px 5px 2.5px;
   width: calc(100% - 5px);
   position : relative;
+  padding : 10px;
 `;
 

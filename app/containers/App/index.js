@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import FacebookAuth from 'containers/FacebookAuth/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
@@ -19,7 +20,7 @@ import Footer from 'components/Footer';
 import RoomListPage from '../RoomListPage';
 
 const AppWrapper = styled.div`
-  max-width: calc(768px + 16px * 2);
+  max-width: 1218px;
   margin: 0 auto;
   display: flex;
   min-height: 100%;
@@ -46,13 +47,14 @@ export default function App() {
       <Header />
       <BodyWrapper>
         <Switch>
+          <Route exact path="/execute_facebook_auth" component={FacebookAuth} />
           <Route exact path="/" component={HomePage} />
           <Route path="/features" component={FeaturePage} />
           <Route path="/rooms" component={RoomListPage} />
           <Route path="" component={NotFoundPage} />
         </Switch>
       </BodyWrapper>
-      <Footer />
+      {/* <Footer /> */}
     </AppWrapper>
   );
 }
