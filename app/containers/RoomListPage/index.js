@@ -6,7 +6,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { stringify } from 'querystring';
-
+import RoomFilter from './../RoomFilter'
 
 export default class RoomListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -19,7 +19,9 @@ export default class RoomListPage extends React.Component { // eslint-disable-li
   render() {
     return (
       <RoomListPageContainer>
-        <RoomFilterBox />
+        <RoomFilterBox>
+          <RoomFilter/>
+        </RoomFilterBox>
         <RoomList>
           <Room />
           <Room />
@@ -98,8 +100,8 @@ const RoomFilterBox = styled.div`
   display: inline-block;
   width: 250px;
   vertical-align: top;
-  height : 768px;
   margin-top: 15px;
+  padding:5px;
   box-shadow: 0 1px 4px rgba(41,51,57,.5);
   margin-left: 2px;
 `;
