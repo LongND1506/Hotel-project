@@ -4,7 +4,7 @@ import Slider from 'material-ui/Slider';
 import Checkbox from 'material-ui/Checkbox';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import AutoComplete from 'material-ui/AutoComplete';
+import TextField from 'material-ui/TextField';
 
 const locations = ['TP .Hồ Chí Minh','Nha Trang','Đà Nẵng','Quy Nhơn','Hải Phòng'];
 const items=locations.map((location)=>{
@@ -15,40 +15,61 @@ const items=locations.map((location)=>{
           />
     )
 })
-const dataSource = ['12345', '23456', '34567'];
+const classofhotel=[{id:'1',num:'1 sao'},{id:'2',num:'2 sao'},
+{id:'3',num:'3 sao'},
+{id:'4',num:'4 sao'},
+{id:'5',num:'5 sao'},
+]
+class CheckboxField extends React.PureComponent {
+
+    handleCheck = (event, isInputChecked) => {
+      this.props.onChange(event, isInputChecked, this.props.label);
+    };
+  
+    render() {
+      return (
+            <Checkbox
+              label={this.props.label}
+              value={this.props.label}
+              onCheck={this.handleCheck}
+            />
+      )}
+  }
+const CheckBox= classofhotel.map((item)=>{
+           return(
+            <CheckboxField key={item} onChange={(event,isChecked,value)=>{console.log(value)}} label={item}/>
+            ) 
+})
 export default class RoomFilter extends React.Component{
     constructor(props)
     {
         super(props)
-        this.state={price:100,location:0 ,distance:10,searchText:''};
+        this.state={price:100,location:0 ,distance:10,address:'',hotelname:'',hotelclass:[]};
         this.HandlePriceChange=this.HandlePriceChange.bind(this)
         this.HandleDistanceChange=this.HandleDistanceChange.bind(this)
         this.HandleLocationChange=this.HandleLocationChange.bind(this)
-        this.handleNewRequest=this.handleNewRequest.bind(this)
-        this.handleUpdateInput=this.handleUpdateInput.bind(this)
+        this.HandleChange=this.HandleChange.bind(this)
+        this.HandleClick=this.HandleClick.bind(this)
     }
-    handleUpdateInput = (searchText) => {
-        this.setState({
-          searchText: searchText,
-        });
-      };
     
-    handleNewRequest = () => {
-        this.setState({
-          searchText: '',
-        });
-      };
     HandlePriceChange(e,value){
         this.setState({price:value});
-        console.log(this.state)
+       
     }
     HandleLocationChange(e,index,value){
         this.setState({location:value})
-        console.log(this.state)
-
     }
     HandleDistanceChange(e,value){
         this.setState({distance:value})
+    }
+    HandleChange(e){
+        this.setState({
+            [e.target.name]:e.target.value
+        })
+    }
+    HandleClick(){
+        console.log(this.state)
+        console.log(Checkbox)
     }
     render(){
         return(
@@ -76,21 +97,7 @@ export default class RoomFilter extends React.Component{
                 <FilterOpt>
                     <H>Hotel Class</H>
                     <div>
-                        <span>
-                            <Checkbox label='1 sao'/>
-                        </span>
-                        <span>
-                            <Checkbox label='2 sao'/>
-                        </span>
-                        <span>
-                            <Checkbox label='3 sao'/>
-                        </span>
-                        <span>
-                            <Checkbox label='4 sao'/>
-                        </span>
-                        <span>
-                            <Checkbox label='5 sao'/>
-                        </span>
+                        {CheckBox}
                     </div>
                 </FilterOpt>
                 <FilterOpt>
@@ -122,14 +129,16 @@ export default class RoomFilter extends React.Component{
                                 step={0.1}
                                 value={this.state.distance}
                                 onChange={this.HandleDistanceChange}
+                                sliderStyle={{'marginBottom':'0px!important'}}
                                 />
                             <div>
-                            <AutoComplete
-                                hintText="Address"
-                                filter={AutoComplete.noFilter}
-                                dataSource={dataSource}
-                                textFieldStyle={{'width':'200px'}}
-                                />
+                            <TextField 
+                            style={{'width':'210px'}} 
+                            floatingLabelText="Address" 
+                            name='address'
+                            value={this.state.address}
+                            onChange={this.HandleChange}
+                            />
                             </div>
                         </div>
                     </div>
@@ -137,18 +146,18 @@ export default class RoomFilter extends React.Component{
                 <FilterOpt>
                     <H>Name Search</H>
                     <div>
-                    <AutoComplete
-                        hintText="Hotel Name"
-                        searchText={this.state.searchText}
-                        dataSource={dataSource}
-                        onUpdateInput={this.handleUpdateInput}
-                        onNewRequest={this.handleNewRequest}
-                        textFieldStyle={{'width':'200px'}}
-                        filter={(searchText, key) => (key.indexOf(searchText) !== -1)}
-                        openOnFocus={true}
-                    />
+                        <TextField 
+                        style={{'width':'210px',}} 
+                        floatingLabelText="Hotel Name" 
+                        name='hotelname'
+                        value={this.state.hotelname}
+                        onChange={this.HandleChange}
+                        />
                     </div>
                 </FilterOpt>
+                <ButtonWrapper>
+                    <Button type='button' onClick={this.HandleClick}>Search</Button>
+                </ButtonWrapper>
             </div>
         )
     }
@@ -162,4 +171,13 @@ const H=styled.div`
 font-weight: 800;
 font-size: 20px;
 margin-bottom: 20px;
+`
+const ButtonWrapper=styled.div`
+text-align: center;
+margin: 20px;`
+const Button=styled.button`
+padding: 10px 20px;
+background: #2789b5de;
+color: #fff;
+border-radius: 5px;
 `
