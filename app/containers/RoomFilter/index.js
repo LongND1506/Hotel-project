@@ -15,29 +15,28 @@ const items=locations.map((location)=>{
           />
     )
 })
-const classofhotel=[{id:'1',num:'1 sao'},{id:'2',num:'2 sao'},
-{id:'3',num:'3 sao'},
-{id:'4',num:'4 sao'},
-{id:'5',num:'5 sao'},
+const classofhotel=['1 sao','2 sao',
+'3 sao','4 sao',
+'5 sao',
 ]
-class CheckboxField extends React.PureComponent {
+// class CheckboxField extends React.PureComponent {
 
-    handleCheck = (event, isInputChecked) => {
-      this.props.onChange(event, isInputChecked, this.props.label);
-    };
+//     handleCheck = (event, isInputChecked) => {
+//       this.props.onChange(event, isInputChecked, this.props.label);
+//     };
   
-    render() {
-      return (
-            <Checkbox
-              label={this.props.label}
-              value={this.props.label}
-              onCheck={this.handleCheck}
-            />
-      )}
-  }
+//     render() {
+//       return (
+//             <Checkbox
+//               label={this.props.label}
+//               value={this.props.label}
+//               onCheck={this.handleCheck}
+//             />
+//       )}
+//   }
 const CheckBox= classofhotel.map((item)=>{
            return(
-            <CheckboxField key={item} onChange={(event,isChecked,value)=>{console.log(value)}} label={item}/>
+            <Checkbox key={item} onChange={(event,isChecked,value)=>{console.log(value)}} label={item}/>
             ) 
 })
 export default class RoomFilter extends React.Component{
