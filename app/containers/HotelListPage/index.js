@@ -6,13 +6,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { stringify } from 'querystring';
-import RoomFilter from './../RoomFilter'
-import {GridList, GridTile} from 'material-ui/GridList';
-import IconButton from 'material-ui/IconButton';
-import Subheader from 'material-ui/Subheader';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import HotelFilter from './../HotelFilter'
 import FontIcon from 'material-ui/FontIcon';
-const Rooms=[
+import browserHistory from 'react-router-redux'
+import BackLog from '../BackLog'
+import Avatar from '../../components/Avatar'
+const Hotels=[
 {id:'0',hotelname:'New Dome',hotelclass:'1 sao'
 ,hotellocation:'Nha trang , 10km to Thap Tram Huong'
 ,hotelrating:'7.3',hotelprice:'$50'
@@ -43,7 +42,7 @@ const Rooms=[
 ,hotelrating:'7.3',hotelprice:'$90'
 ,linkimage:'https://t-ec.bstatic.com/images/hotel/max1024x768/791/79184202.jpg'}
 ]
-export default class RoomListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export default class HotelListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
   // Since state and props are static,
   // there's no need to re-render this component
@@ -53,49 +52,50 @@ export default class RoomListPage extends React.Component { // eslint-disable-li
 
   render() {
     return (
-      <RoomListPageContainer>
-        <RoomFilterBox>
-          <RoomFilter/>
-        </RoomFilterBox>
-        <RoomList>
-          {Rooms.map((room)=>
-            { return(<Room 
-              hotelname={room.hotelname}
-              hotelclass={room.hotelclass}
-              hotellocation={room.hotellocation}
-              hotelrating={room.hotelrating}
-              hotelprice={room.hotelprice}
-              linkimage={room.linkimage}
-              key={room.id}
-              ></Room>)
+      <HotelListPageContainer>
+        <HotelFilterBox>
+          <HotelFilter/>
+        </HotelFilterBox>
+        <HotelList>
+          {Hotels.map((hotel)=>
+            { return(<Hotel 
+              hotelname={hotel.hotelname}
+              hotelclass={hotel.hotelclass}
+              hotellocation={hotel.hotellocation}
+              hotelrating={hotel.hotelrating}
+              hotelprice={hotel.hotelprice}
+              linkimage={hotel.linkimage}
+              key={hotel.id}
+              ></Hotel>)
               
             })}
-        </RoomList>
-      </RoomListPageContainer>
+        </HotelList>
+      </HotelListPageContainer>
     );
   }
 }
 
-class Room extends React.Component {
+class Hotel extends React.Component {
   constructor(props){
     super(props)
     
   }
   render() {
     return (
-      <RoomItemContainer>
-        <RoomAvatar src={this.props.linkimage} hotelname={this.props.hotelname} hotelclass={this.props.hotelclass}/>
-        <RoomDesc>
+      <HotelItemContainer>
+        <Avatar src={this.props.linkimage} title={this.props.hotelname} subtitle={this.props.hotelclass}/>
+        <HotelDesc>
           <HotelName>{this.props.hotelname}</HotelName>
-          <HotelDetail><FontIcon style={iconstyle}className="material-icons">grade</FontIcon><div>{this.props.hotelclass}</div></HotelDetail>
+          <HotelDetail><FontIcon style={iconstyle} className="material-icons">grade</FontIcon><div>{this.props.hotelclass}</div></HotelDetail>
           <HotelDetail><FontIcon style={iconstyle} className="material-icons">room</FontIcon><div>{this.props.hotellocation}</div></HotelDetail>
           <HotelDetail><RatingTitle>Rating:</RatingTitle><RatingPoint><div>{this.props.hotelrating}</div></RatingPoint></HotelDetail>
-        </RoomDesc>
-        <RoomPrice>
-          <RoomPriceNumber>{this.props.hotelprice} Per night</RoomPriceNumber>
-          <BookButton type='submit'>Book Now</BookButton>
-        </RoomPrice>
-      </RoomItemContainer>
+        </HotelDesc>
+        <HotelPrice>
+          <HotelPriceNumber>{this.props.hotelprice} Per night</HotelPriceNumber>
+          {/* <BookButton type='button' onClick={()=>{browserHistory.push('/backlog')}}>Book Now</BookButton> */}
+          <BackLog hotelname={this.props.hotelname}/>
+        </HotelPrice>
+      </HotelItemContainer>
     );
   }
 }
@@ -108,47 +108,38 @@ const HotelName = styled.div`
   font-weight: 700;
 `;
 
-const RoomName = styled.div`
-    text-align: center;
-    font-weight: 600;
-    color: #403636;
-    font-size: 20px;
-    height: 20px;
-    line-height: 20px;
-    margin-top: 20px;
-`;
-
-const RoomPriceNumber = styled.div`
+const HotelPriceNumber = styled.div`
     text-align: center;
     font-size: 20px;
     line-height: 20px;
     color: #F44336;
     font-weight: 800;
     padding: 10px;
-    margin-bottom:40px;
+    margin-bottom:15px;
 `;
 
-const BookButton = styled.button`
-    text-align: center;
-    font-weight: 600;
-    color: #fff;
-    font-size: 24px;
-    line-height: 30px;
-    padding: 10px 30px;
-    background: #4267b2de;
-    border-radius:5px;
-    box-shadow: 4px 4px 15px #9E9E9E;
-    transition-duration:0.5s;
-    &:hover ${BookButton} {
-      background-color:#325fb9;
-      transform:scale(1.1,1.1);
-  }
+// const BookButton = styled.button`
+//     text-align: center;
+//     font-weight: 600;
+//     color: #fff;
+//     cursor:pointer;
+//     font-size: 24px;
+//     line-height: 30px;
+//     padding: 10px 30px;
+//     background: #4267b2de;
+//     border-radius:5px;
+//     box-shadow: 4px 4px 15px #9E9E9E;
+//     transition-duration:0.5s;
+//     &:hover ${BookButton} {
+//       background-color:#325fb9;
+//       transform:scale(1.1,1.1);
+//   }
+// `;
+
+const HotelListPageContainer = styled.div`
 `;
 
-const RoomListPageContainer = styled.div`
-`;
-
-const RoomFilterBox = styled.div`
+const HotelFilterBox = styled.div`
   display: inline-block;
   width: 250px;
   vertical-align: top;
@@ -159,52 +150,17 @@ const RoomFilterBox = styled.div`
 `;
 
 
-const RoomList = styled.div`
+const HotelList = styled.div`
     padding-bottom: 50px;
     display: inline-block;
     width : calc(100% - 254px);
     padding-left : 15px;
     padding-right: 15px;
 `;
-const Avatar=styled.img`
-  width:250px;
-  height:180px;
-  transition-duration:1s;
-`
-const AvatarWrapper=styled.div`
-  width: fit-content;
-  float: left;
-  &:hover ${Avatar}{
-    transform:scale(1.1,1.1)
-  }
-`
-const RoomAvatar = (props)=>{
-  return(
-    <AvatarWrapper>
-      <GridList cols ={1} style={{'width':'100%'}}>
-      <GridTile
-          title={props.hotelname}
-          subtitle={<span><b>{props.hotelclass}</b></span>}
-          actionIcon={<IconButton
-              tooltip='add to your favorite'
-              tooltipPosition='top-left'
-              touch={true}
-            >
-            <StarBorder color="white" />
-            </IconButton>}
-            style={{'width':'100%'}}
-          >
-          <a href='#'><Avatar src={props.src}/></a>
-        </GridTile>
-      </GridList>
-    </AvatarWrapper>
-  ) 
-}
 const HotelDetail=styled.div`
   margin:15px 0px;
 `
-
-const RoomPrice = styled.div`
+const HotelPrice = styled.div`
     position: absolute;
     width : 200px;
     height : fit-content;
@@ -214,7 +170,7 @@ const RoomPrice = styled.div`
     margin-left: 40px;
 `;
 
-const RoomDesc = styled.div`
+const HotelDesc = styled.div`
     width: calc(100% - 515px);
     height: 100%;
     display: inline-block;
@@ -222,7 +178,7 @@ const RoomDesc = styled.div`
     padding-left: 10px;
 `;
 
-const RoomItemContainer = styled.div`
+const HotelItemContainer = styled.div`
   height: 200px;
   box-shadow: 0 1px 4px rgba(41,51,57,.5);
   margin: 15px 0px 5px 2.5px;

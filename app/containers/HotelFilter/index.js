@@ -39,7 +39,7 @@ const CheckBox= classofhotel.map((item)=>{
             <Checkbox key={item} onChange={(event,isChecked,value)=>{console.log(value)}} label={item}/>
             ) 
 })
-export default class RoomFilter extends React.Component{
+export default class HotelFilter extends React.Component{
     constructor(props)
     {
         super(props)
