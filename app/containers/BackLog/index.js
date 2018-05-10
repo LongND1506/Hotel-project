@@ -6,7 +6,6 @@ import BookOption from '../BackLog/BookOption'
 
 export default class BackLog extends React.Component{
   state = {
-    loading: false,
     visible: false,
   }
   showModal = () => {
@@ -14,17 +13,11 @@ export default class BackLog extends React.Component{
       visible: true,
     });
   }
-  handleOk = () => {
-    this.setState({ loading: true });
-    setTimeout(() => {
-      this.setState({ loading: false, visible: false });
-    }, 3000);
-  }
   handleCancel = () => {
     this.setState({ visible: false });
   }
     render(){
-      const { visible, loading } = this.state;
+      const { visible } = this.state;
         return(
             <div>
               <VDButton onClick={this.showModal}><Span> VIEW DEAL</Span></VDButton>
@@ -32,13 +25,9 @@ export default class BackLog extends React.Component{
                 visible={visible}
                 width='80%'
                 title={this.props.hotelname}
-                onOk={this.handleOk}
                 onCancel={this.handleCancel}
                 footer={[
                   <Button key="back" onClick={this.handleCancel}>Return</Button>,
-                  <Button key="submit" type="primary" loading={loading} onClick={this.handleOk}>
-                    Submit
-                  </Button>,
                 ]}
               >
           <BookOption/>

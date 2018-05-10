@@ -3,13 +3,15 @@ import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import styled from 'styled-components';
+import {Rate} from 'antd'
 const Avatar = (props)=>{
+  console.log(props.rating)
     return(
       <AvatarWrapper>
         <GridList cols ={1} style={{'width':'100%'}}>
         <GridTile
             title={props.title}
-            subtitle={<span><b>{props.subtitle}</b></span>}
+            subtitle={<Rate defaultValue={props.rating/2}/>}
             actionIcon={<IconButton
                 tooltip='add to your favorite'
                 tooltipPosition='top-left'
@@ -37,4 +39,7 @@ const Img=styled.img`
   }
   transition-duration:1s;
 `
+const Rating=(props)=>(
+  <Rate defaultValue={3}/>
+)
 export default Avatar

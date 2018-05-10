@@ -11,35 +11,37 @@ import FontIcon from 'material-ui/FontIcon';
 import browserHistory from 'react-router-redux'
 import BackLog from '../BackLog'
 import Avatar from '../../components/Avatar'
+import {Icon,Rate} from 'antd'
+
 const Hotels=[
-{id:'0',hotelname:'New Dome',hotelclass:'1 sao'
+{id:'0',hotelname:'New Dome',hotelclass:'1-star'
 ,hotellocation:'Nha trang , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$50'
+,hotelrating:7.3,hotelprice:'$50'
 ,linkimage:'https://www.telegraph.co.uk/content/dam/business/2017/08/10/TELEMMGLPICT000136723018_trans_NvBQzQNjv4BqqVzuuqpFlyLIwiB6NTmJwYDpM1iOj7her_R_5PUySDU.jpeg?imwidth=450'
 },
-{id:'1',hotelname:'New Dome',hotelclass:'1 sao'
+{id:'1',hotelname:'New Dome',hotelclass:'2-star'
 ,hotellocation:'Nha trang , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$40'
+,hotelrating:6.3,hotelprice:'$40'
 ,linkimage:'http://www3.hilton.com/resources/media/hi/IADMRHF/en_US/img/shared/full_page_image_gallery/main/HH_hotelextdusk_2_675x359_FitToBoxSmallDimensionSmallDimension_Center.jpg'
 },
-{id:'2',hotelname:'New Aome',hotelclass:'2 sao'
+{id:'2',hotelname:'New Aome',hotelclass:'3-star'
 ,hotellocation:'Da Lat , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$60'
+,hotelrating:8.3,hotelprice:'$60'
 ,linkimage:'http://www.crystal-hotel.ch/media/titelbilder/hotel-sommer.jpg'
 },
-{id:'3',hotelname:'New Bome',hotelclass:'3 sao'
+{id:'3',hotelname:'New Bome',hotelclass:'4-star'
 ,hotellocation:'Phu Yen , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$70'
+,hotelrating:5.3,hotelprice:'$70'
 ,linkimage:'https://images.trvl-media.com/hotels/1000000/20000/19700/19665/19665_113_z.jpg'
 },
-{id:'4',hotelname:'New Come',hotelclass:'4 sao'
+{id:'4',hotelname:'New Come',hotelclass:'5-star'
 ,hotellocation:'Da Nang , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$80'
+,hotelrating:6.3,hotelprice:'$80'
 ,linkimage:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI8o0efHQHocTtG23QmDMsXZ4RWAW4VhwOnULK9hSO6wB27iF2'
 },
-{id:'5',hotelname:'New Eome',hotelclass:'5 sao'
+{id:'5',hotelname:'New Eome',hotelclass:'5-star'
 ,hotellocation:'Quy Nhon , 10km to Thap Tram Huong'
-,hotelrating:'7.3',hotelprice:'$90'
+,hotelrating:8.3,hotelprice:'$90'
 ,linkimage:'https://t-ec.bstatic.com/images/hotel/max1024x768/791/79184202.jpg'}
 ]
 export default class HotelListPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -83,16 +85,18 @@ class Hotel extends React.Component {
   render() {
     return (
       <HotelItemContainer>
-        <Avatar src={this.props.linkimage} title={this.props.hotelname} subtitle={this.props.hotelclass}/>
+        <Avatar src={this.props.linkimage}
+        title={this.props.hotelname}
+        subtitle={this.props.hotelclass}
+        rating={this.props.hotelrating}/>
         <HotelDesc>
           <HotelName>{this.props.hotelname}</HotelName>
-          <HotelDetail><FontIcon style={iconstyle} className="material-icons">grade</FontIcon><div>{this.props.hotelclass}</div></HotelDetail>
-          <HotelDetail><FontIcon style={iconstyle} className="material-icons">room</FontIcon><div>{this.props.hotellocation}</div></HotelDetail>
+          <HotelDetail><Icon style={iconstyle}type="star" /><div>{this.props.hotelclass}</div></HotelDetail>
+          <HotelDetail><Icon style={iconstyle} type="environment" /><div>{this.props.hotellocation}</div></HotelDetail>
           <HotelDetail><RatingTitle>Rating:</RatingTitle><RatingPoint><div>{this.props.hotelrating}</div></RatingPoint></HotelDetail>
         </HotelDesc>
         <HotelPrice>
           <HotelPriceNumber>{this.props.hotelprice} Per night</HotelPriceNumber>
-          {/* <BookButton type='button' onClick={()=>{browserHistory.push('/backlog')}}>Book Now</BookButton> */}
           <BackLog hotelname={this.props.hotelname}/>
         </HotelPrice>
       </HotelItemContainer>
@@ -202,5 +206,7 @@ const RatingTitle=styled.div`
   font-weight: 800;
 `
 const iconstyle={
-  'float':'left'
+  'float': 'left',
+  'fontSize': '20px',
+  'marginRight': '10px'
 }
