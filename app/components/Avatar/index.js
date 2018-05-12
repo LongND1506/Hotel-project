@@ -1,7 +1,7 @@
 import React from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
-import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import  FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import styled from 'styled-components';
 import {Rate} from 'antd'
 const Avatar = (props)=>{
@@ -17,7 +17,7 @@ const Avatar = (props)=>{
                 tooltipPosition='top-left'
                 touch={true}
               >
-              <StarBorder color="white" />
+              <FavoriteBorder color="white" />
               </IconButton>}
               style={{'width':'100%'}}
             >

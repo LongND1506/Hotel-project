@@ -96,7 +96,7 @@ class Hotel extends React.Component {
           <HotelDetail><RatingTitle>Rating:</RatingTitle><RatingPoint><div>{this.props.hotelrating}</div></RatingPoint></HotelDetail>
         </HotelDesc>
         <HotelPrice>
-          <HotelPriceNumber>{this.props.hotelprice} Per night</HotelPriceNumber>
+          <HotelPriceNumber>{this.props.hotelprice}/Night</HotelPriceNumber>
           <BackLog hotelname={this.props.hotelname}/>
         </HotelPrice>
       </HotelItemContainer>
@@ -121,43 +121,25 @@ const HotelPriceNumber = styled.div`
     padding: 10px;
     margin-bottom:15px;
 `;
-
-// const BookButton = styled.button`
-//     text-align: center;
-//     font-weight: 600;
-//     color: #fff;
-//     cursor:pointer;
-//     font-size: 24px;
-//     line-height: 30px;
-//     padding: 10px 30px;
-//     background: #4267b2de;
-//     border-radius:5px;
-//     box-shadow: 4px 4px 15px #9E9E9E;
-//     transition-duration:0.5s;
-//     &:hover ${BookButton} {
-//       background-color:#325fb9;
-//       transform:scale(1.1,1.1);
-//   }
-// `;
-
 const HotelListPageContainer = styled.div`
 `;
 
 const HotelFilterBox = styled.div`
   display: inline-block;
-  width: 250px;
+  width: 275px;
   vertical-align: top;
   margin-top: 15px;
   padding:5px;
   box-shadow: 0 1px 4px rgba(41,51,57,.5);
   margin-left: 2px;
+  background: #37454d;
 `;
 
 
 const HotelList = styled.div`
     padding-bottom: 50px;
     display: inline-block;
-    width : calc(100% - 254px);
+    width : calc(100% - 300px);
     padding-left : 15px;
     padding-right: 15px;
 `;
