@@ -5,21 +5,30 @@ import A from './A';
 import Img from './Img';
 import NavBar from './NavBar';
 import HeaderLink from './HeaderLink';
-import Banner from './banner.jpg';
+// import Banner from './banner.jpg';
 import messages from './messages';
 import LocaleToggle from 'containers/LocaleToggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import FontIcon from 'material-ui/FontIcon';
-
+import LoginPage from '../../containers/Authentication/LoginPage'
+import SignupPage from '../../containers/Authentication/SignupPage'
+import {Button} from 'antd'
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  constructor(props){
+    super(props)
+    this.state={isLogin:false}
+  }
   render() {
     return (
       <HeaderContainer>
         {/* <LocaleToggle /> */}
         <HeaderBox>
           <Logo src={'http://fredericgonzalo.com/wp-content/uploads/2013/06/43504-hi-home_away.jpg'} />
-          <LoginButton />
+            {
+              this.state.isLogin ?(<AuthWrapper><Button type="primary">LOGOUT</Button></AuthWrapper>)
+              :(<AuthWrapper><LoginButton /><SignupButton/></AuthWrapper>)
+            }
         </HeaderBox>
       </HeaderContainer>
     );
@@ -51,24 +60,32 @@ cursor: pointer;
 
 const LoginButton = () => (
 
-  <RaisedButton
-    onClick={function () {
-      window.location.replace('http://localhost:3000/auth/facebook');
-    }}
-    backgroundColor="#4267b2"
-    labelColor="white"
-    style={
-    {
-      marginRight: '16px',
-      marginTop: '22px',
-      float: 'right',
+  // <RaisedButton
+  //   onClick={function () {
+  //     window.location.replace('http://localhost:5000/auth/facebook');
+  //   }}
+  //   backgroundColor="#4267b2"
+  //   labelColor="white"
+  //   style={
+  //   {
+  //     marginRight: '16px',
+  //     marginTop: '22px',
+  //     float: 'right',
 
-    }
-    }
-    icon={<FontIcon className="muidocs-icon-custom-github" />}
-    target="_blank"
-    label="Login with Facebook"
-    // secondary
-  />
+  //   }
+  //   }
+  //   icon={<FontIcon className="muidocs-icon-custom-github" />}
+  //   target="_blank"
+  //   label="Login with Facebook"
+  //   // secondary
+  // />
+  <LoginPage/>
 );
+const SignupButton=()=>(
+  <SignupPage/>
+)
+const AuthWrapper=styled.div`
+  width: fit-content;
+  float: right;
+`
 export default Header;

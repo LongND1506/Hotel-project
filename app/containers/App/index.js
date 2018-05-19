@@ -10,15 +10,15 @@ import React from 'react';
 import { Helmet } from 'react-helmet';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
-
+import 'antd/dist/antd.css';
 import HomePage from 'containers/HomePage/Loadable';
 import FacebookAuth from 'containers/FacebookAuth/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
-import RoomListPage from '../RoomListPage';
-
+import HotelListPage from '../HotelListPage';
+import SignupPage from '../Authentication/SignupPage';
 const AppWrapper = styled.div`
   max-width: 1218px;
   margin: 0 auto;
@@ -50,8 +50,10 @@ export default function App() {
           <Route exact path="/execute_facebook_auth" component={FacebookAuth} />
           <Route exact path="/" component={HomePage} />
           <Route path="/features" component={FeaturePage} />
-          <Route path="/rooms" component={RoomListPage} />
+          <Route path="/rooms" component={HotelListPage} />
+          <Route path="/signup" component={SignupPage} />
           <Route path="" component={NotFoundPage} />
+          
         </Switch>
       </BodyWrapper>
       {/* <Footer /> */}
