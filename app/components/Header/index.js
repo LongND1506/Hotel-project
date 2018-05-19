@@ -11,13 +11,13 @@ import LocaleToggle from 'containers/LocaleToggle';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import FontIcon from 'material-ui/FontIcon';
-import LoginPage from '../../containers/Authentication/LoginPage'
-import SignupPage from '../../containers/Authentication/SignupPage'
-import {Button} from 'antd'
+import LoginPage from '../../containers/Authentication/LoginPage';
+import SignupPage from '../../containers/Authentication/SignupPage';
+import { Button } from 'antd';
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  constructor(props){
-    super(props)
-    this.state={isLogin:false}
+  constructor(props) {
+    super(props);
+    this.state = { isLogin: false };
   }
   render() {
     return (
@@ -25,9 +25,9 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
         {/* <LocaleToggle /> */}
         <HeaderBox>
           <Logo src={'http://fredericgonzalo.com/wp-content/uploads/2013/06/43504-hi-home_away.jpg'} />
-            {
-              this.state.isLogin ?(<AuthWrapper><Button type="primary">LOGOUT</Button></AuthWrapper>)
-              :(<AuthWrapper><LoginButton /><SignupButton/></AuthWrapper>)
+          {
+              this.state.isLogin ? (<AuthWrapper><Button type="primary">LOGOUT</Button></AuthWrapper>)
+              :(<AuthWrapper><LoginButton /><SignupButton /></AuthWrapper>)
             }
         </HeaderBox>
       </HeaderContainer>
@@ -79,13 +79,14 @@ const LoginButton = () => (
   //   label="Login with Facebook"
   //   // secondary
   // />
-  <LoginPage/>
+  <LoginPage />
 );
-const SignupButton=()=>(
-  <SignupPage/>
-)
-const AuthWrapper=styled.div`
+const SignupButton = () => (
+  <SignupPage />
+);
+const AuthWrapper = styled.div`
   width: fit-content;
   float: right;
-`
+  margin-right: 2px;
+`;
 export default Header;

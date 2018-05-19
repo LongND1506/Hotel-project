@@ -77,8 +77,6 @@ export default class HotelListPage extends React.Component { // eslint-disable-l
           <HotelFilter />
         </HotelFilterBox>
         <HotelList>
-          <HotelRecomend />
-          <HotelListTitle>Hotel List</HotelListTitle>
           {Hotels.map((hotel) =>
             (<Hotel
               hotelname={hotel.hotelname}
@@ -145,6 +143,7 @@ const HotelName = styled.div`
   font-size: 20px;
   color: #37454d;
   font-weight: 700;
+  font-family: Arial,Helvetica,Sans,Sans-Serif,Sans Serif;
 `;
 
 const HotelPriceNumber = styled.div`
@@ -154,7 +153,7 @@ const HotelPriceNumber = styled.div`
   color: #F44336;
   font-weight: 800;
   padding: 10px;
-  margin-bottom:15px;
+  font-family: Arial,Helvetica,Sans,Sans-Serif,Sans Serif;
 `;
 const HotelListPageContainer = styled.div`
 `;
@@ -176,7 +175,6 @@ const HotelList = styled.div`
   display: inline-block;
   width : calc(100% - 300px);
   padding-left : 15px;
-  padding-right: 15px;
 `;
 const HotelDetail = styled.div`
   margin:15px 0px;
@@ -208,18 +206,19 @@ const HotelItemContainer = styled.div`
   padding : 10px;
 `;
 const RatingPoint = styled.div`
-  padding:10px;
-  background-color:#e93a1eb5;
+  padding:6px;
+  background-color:#1890ff;
   color:#fff;
   width: fit-content;
   font-size: 13px;
   font-weight: 800;
-  border-radius: 5px;
+  border-radius: 3px;
   float :left;
 `;
 const RatingTitle = styled.div`
   float: left;
-  margin: 10px;
+  margin: 5px;
+  margin-left:2px;
   font-weight: 800;
 `;
 const HotelListTitle = styled.div`
