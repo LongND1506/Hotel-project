@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Checkbox,Row,Col} from 'antd';
+import { Checkbox, Row, Col } from 'antd';
 const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['1-star', '2-star', '3-star','4-star','5-star'];
+const plainOptions = ['1-star', '2-star', '3-star', '4-star', '5-star'];
 export default class HotelClassFilter extends React.Component {
-    render() {
-      return (
+  render() {
+    return (
+      <div>
         <div>
-          <div style={{ borderBottom: '1px solid #E9E9E9' }}>
             <Checkbox
               indeterminate={this.props.indeterminate}
               onChange={this.props.onCheckAllChange}
@@ -16,10 +16,13 @@ export default class HotelClassFilter extends React.Component {
               Check all
             </Checkbox>
           </div>
-          <br />
-          <CheckboxGroup options={plainOptions} value={this.props.checkedList} onChange={this.props.onChange} />
-        </div>
-      );
-    }
+        <br />
+        <CheckboxGroup
+            options={plainOptions}
+            value={this.props.checkedList}
+            onChange={this.props.onChange}
+          />
+      </div>
+    );
   }
-  
+  }

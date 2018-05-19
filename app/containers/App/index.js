@@ -14,6 +14,7 @@ import 'antd/dist/antd.css';
 import HomePage from 'containers/HomePage/Loadable';
 import FacebookAuth from 'containers/FacebookAuth/Loadable';
 import FeaturePage from 'containers/FeaturePage/Loadable';
+import OrderPage from 'containers/OrderPage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
@@ -52,8 +53,8 @@ export default function App() {
           <Route path="/features" component={FeaturePage} />
           <Route path="/rooms" component={HotelListPage} />
           <Route path="/signup" component={SignupPage} />
+          <Route path="/order" component={OrderPage} />
           <Route path="" component={NotFoundPage} />
-          
         </Switch>
       </BodyWrapper>
       {/* <Footer /> */}
