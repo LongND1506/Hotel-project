@@ -12,7 +12,7 @@ import browserHistory from 'react-router-redux'
 import BackLog from '../BackLog'
 import Avatar from '../../components/Avatar'
 import {Icon,Rate} from 'antd'
-
+import HotelRecomend from '../HotelRecomendation'
 const Hotels=[
 {id:'0',hotelname:'New Dome',hotelclass:'1-star'
 ,hotellocation:'Nha trang , 10km to Thap Tram Huong'
@@ -59,6 +59,8 @@ export default class HotelListPage extends React.Component { // eslint-disable-l
           <HotelFilter/>
         </HotelFilterBox>
         <HotelList>
+          <HotelRecomend/>
+          <HotelListTitle>Hotel List</HotelListTitle>
           {Hotels.map((hotel)=>
             { return(<Hotel 
               hotelname={hotel.hotelname}
@@ -84,6 +86,7 @@ class Hotel extends React.Component {
   }
   render() {
     return (
+
       <HotelItemContainer>
         <Avatar src={this.props.linkimage}
         title={this.props.hotelname}
@@ -186,6 +189,14 @@ const RatingTitle=styled.div`
   float: left;
   margin: 10px;
   font-weight: 800;
+`
+const HotelListTitle=styled.div`
+    padding: 10px;
+    background: #37454d;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align:center;
 `
 const iconstyle={
   'float': 'left',

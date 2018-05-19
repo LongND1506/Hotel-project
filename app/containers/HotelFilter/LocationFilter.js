@@ -261,24 +261,7 @@ export default class LocationFilter extends React.Component{
     constructor(props)
     {
         super(props)
-        this.state={city:'',distance:0,address:'',hotelname:''}
-        this.CityChange=this.CityChange.bind(this)
-        this.InputChange=this.InputChange.bind(this)
-        this.DistanceChange=this.DistanceChange.bind(this)
 
-    }
-    CityChange(value){
-        console.log(this.state)
-        this.setState({city:value})
-    }
-    InputChange(e){
-        console.log(this.state)
-        this.setState({[e.target.name]:e.target.v})
-    }
-    DistanceChange(value)
-    {
-        console.log(this.state)
-        this.setState({distance:value})
     }
     render(){
         return(
@@ -289,8 +272,7 @@ export default class LocationFilter extends React.Component{
                         style={{ width: 200 }}
                         placeholder="Select City"
                         optionFilterProp="children"
-                        name='city'
-                        onChange={this.CityChange}
+                        onChange={this.props.CityChange}
                         filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     >
                          {location.map((item)=>(
@@ -304,7 +286,7 @@ export default class LocationFilter extends React.Component{
                     step={0.1}
                     min={0.5}
                     max={20} 
-                    onChange={this.DistanceChange}/>
+                    onChange={this.props.DistanceChange}/>
                 </Wrapper>
                 <Wrapper>
                     <Search
@@ -312,7 +294,7 @@ export default class LocationFilter extends React.Component{
                         onSearch={value => console.log(value)}
                         style={{ width: 200 }}
                         name='address'
-                        onChange={this.InputChange}
+                        onChange={this.props.InputChange}
                     />
                 </Wrapper>
                 <Wrapper>
@@ -321,7 +303,7 @@ export default class LocationFilter extends React.Component{
                         onSearch={value => console.log(value)}
                         style={{ width: 200 }}
                         name='hotelname'
-                        onChange={this.InputChange}
+                        onChange={this.props.InputChange}
                     />
                 </Wrapper>
             </div>

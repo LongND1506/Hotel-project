@@ -18,6 +18,7 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import HotelListPage from '../HotelListPage';
+import SignupPage from '../Authentication/SignupPage';
 const AppWrapper = styled.div`
   max-width: 1218px;
   margin: 0 auto;
@@ -50,7 +51,9 @@ export default function App() {
           <Route exact path="/" component={HomePage} />
           <Route path="/features" component={FeaturePage} />
           <Route path="/rooms" component={HotelListPage} />
+          <Route path="/signup" component={SignupPage} />
           <Route path="" component={NotFoundPage} />
+          
         </Switch>
       </BodyWrapper>
       {/* <Footer /> */}

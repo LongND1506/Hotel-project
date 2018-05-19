@@ -11,7 +11,7 @@ import styled from 'styled-components';
 //   } from 'material-ui/Table';
 import Avatar from '../../components/Avatar'
 import RoomImageSlider from './RoomImageSlider'
-import {Table,Button} from 'antd'
+import {Button,Table} from 'antd'
 // import RaisedButton from 'material-ui/RaisedButton';
 const Rooms=[
 {id:1,roomtype:{
@@ -52,19 +52,70 @@ const Rooms=[
 // const RoomList=Rooms.map((room)=>{
 //     return(
 //         <TableRow>
-//                 <TableRowColumn>
+//                 <TableRowColumn style={{'width':'300px'}}>
 //                     <div style={{'padding':'10px 0px'}}>
-//                         <Avatar src ={room.image} title={room.type} key={room.id}/>   
+//                         <RoomImageSlider roomtype={room.roomtype} />
 //                     </div>
                     
 //                 </TableRowColumn>
 //                 <TableRowColumn style={{'wordWrapp':'break-word'}}>{room.detail}</TableRowColumn>
 //                 <TableRowColumn>{room.price}$</TableRowColumn>
-//                 <TableHeaderColumn><RaisedButton label="BOOK NOW" onClick={this.handleOpen} /></TableHeaderColumn>
+//                 <TableHeaderColumn><Button type='primary' onClick={()=>{console.log(this)}}>BOOK</Button></TableHeaderColumn>
 //         </TableRow>
 //     )
 // })
-const columns=[{
+class Room extends React.Component{
+    constructor(props){
+        super(props)
+
+    }
+    
+        render(){
+            let self = this;
+            return(
+            <div>
+                <Table dataSource={Rooms}
+                columns={RowXXX(self)} 
+                bordered size='small'
+                rowKey="uid"
+                />
+                {/* <Table>
+                    <TableHeader>
+                        <TableRow>
+                            <TableHeaderColumn>Room Type</TableHeaderColumn>
+                            <TableHeaderColumn>Room Detail</TableHeaderColumn>
+                            <TableHeaderColumn>Price/Night</TableHeaderColumn>
+                            <TableHeaderColumn></TableHeaderColumn>
+                        </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                        {RoomList}
+                    </TableBody>
+                </Table> */}
+                
+            </div>
+        )}
+} 
+// class BookButton extends React.Component{
+//     constructor(props)
+//     {
+//         super(props)
+//         this.state={roomtype:''}
+//         this.handleClick=this.handleClick.bind(this)
+//     }
+//     handleClick(){
+//         console.log(this.props.roomtype)
+//         this.setState({roomtype:this.props.roomtype})
+//     }
+//     render(){
+//         return(
+//             <Button type='primary' onClick={this.handleClick} >BOOK</Button>
+//         )
+//     }
+// }
+
+var RowXXX = function(rootDoom){
+ return [{
     title: 'Room Type',
     key: 'roomtype',
     dataIndex:'roomtype',
@@ -90,42 +141,15 @@ const columns=[{
     key:'id',
     title: '',
     dataIndex:'roomtype',
-    render:(record)=>(
-        <BookButton roomtype={record.text}></BookButton>
+    onCell:()=>{},
+    render:(record)=>{
+        
+        return (
+        <Button type='primary' onClick={()=>{rootDoom.setState({roomtype:record.text})
+            console.log(rootDoom.state)
+    }} >BOOK</Button>
     )
-}]
-export default class Room extends React.Component{
-    constructor(props){
-        super(props)
-        this.state={ }
-        this.handleClick=this.handleClick.bind(this)
-    }
-    handleClick(){
-        alert('123')
-    }
-    render(){
-        return(
-            <div>
-                <Table dataSource={Rooms} columns={columns} bordered size='small' />
-            </div>
-        )
-    }
-} 
-class BookButton extends React.Component{
-    constructor(props)
-    {
-        super(props)
-        this.state={roomtype:''}
-        this.handleClick=this.handleClick.bind(this)
-    }
-    handleClick(){
-        console.log(this.props.roomtype)
-        this.setState({roomtype:this.props.roomtype})
-    }
-    render(){
-        return(
-            <Button type='primary' onClick={this.handleClick} >BOOK</Button>
-        )
-    }
 }
-
+}]
+} 
+export default  Room

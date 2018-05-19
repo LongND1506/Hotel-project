@@ -5,7 +5,7 @@ import  FavoriteBorder from 'material-ui/svg-icons/action/favorite-border';
 import styled from 'styled-components';
 import {Rate} from 'antd'
 const Avatar = (props)=>{
-  console.log(props.rating)
+  console.log(props)
     return(
       <AvatarWrapper>
         <GridList cols ={1} style={{'width':'100%'}}>
@@ -32,7 +32,7 @@ const Avatar = (props)=>{
   float: left;
 `
 const Img=styled.img`
-  width:250px;
+  width:220px;
   height:180px;
   &:hover ${Img}{
     transform:scale(1.1,1.1)

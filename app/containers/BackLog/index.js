@@ -5,6 +5,13 @@ import Room from './RoomList'
 import BookOption from '../BackLog/BookOption'
 
 export default class BackLog extends React.Component{
+  constructor(props){
+    super(props)
+    this.state={roomtype:'',datecheckin:'',datecheckout:'',numofroom:''}
+    this.handleDateChange=this.handleDateChange.bind(this)
+    this.handleRoomChange=this.handleRoomChange.bind(this)
+    this.handleClick=this.handleClick.bind(this)
+  }
   state = {
     visible: false,
   }
@@ -15,6 +22,15 @@ export default class BackLog extends React.Component{
   }
   handleCancel = () => {
     this.setState({ visible: false });
+  }
+  handleDateChange(date,dateString){
+    this.setState({datecheckin:dateString[0],datecheckout:dateString[1]})
+  }
+  handleRoomChange(value){
+      this.setState({numofroom:value})
+  }
+  handleClick(){
+      console.log(this.state)
   }
     render(){
       const { visible } = this.state;
@@ -30,8 +46,11 @@ export default class BackLog extends React.Component{
                   <Button key="back" onClick={this.handleCancel}>Return</Button>,
                 ]}
               >
-          <BookOption/>
-          <Room/>
+          <BookOption 
+          handleDateChange={this.handleDateChange} 
+          handleRoomChange={this.handleRoomChange}
+          />
+          <Room  handleClick={this.handleClick}/>
         </Modal> 
             </div>
         )
