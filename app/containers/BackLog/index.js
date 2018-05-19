@@ -30,6 +30,7 @@ export default class BackLog extends React.Component{
       this.setState({numofroom:value})
   }
   handleClick(){
+      
       console.log(this.state)
   }
     render(){
@@ -50,7 +51,7 @@ export default class BackLog extends React.Component{
           handleDateChange={this.handleDateChange} 
           handleRoomChange={this.handleRoomChange}
           />
-          <Room  handleClick={this.handleClick}/>
+          <Room  state={this.state} handleClick={this.handleClick} />
         </Modal> 
             </div>
         )
