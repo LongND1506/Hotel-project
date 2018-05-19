@@ -12,6 +12,7 @@ import styled from 'styled-components';
 import Avatar from '../../components/Avatar'
 import RoomImageSlider from './RoomImageSlider'
 import {Button,Table} from 'antd'
+// import { setFlagsFromString } from '';
 // import RaisedButton from 'material-ui/RaisedButton';
 const Rooms=[
 {id:1,roomtype:{
@@ -35,7 +36,6 @@ const Rooms=[
 }
 ,detail:'Cable TV service,serviceCookware,Dishwasher,Flat-panel TV,Free WiFi,Full-sized refrigerator/freezer'
 ,price:'40'
-
 }
 ,{id:3,roomtype:{
     text:'Junior Suite (Courtyard)'
@@ -67,7 +67,7 @@ const Rooms=[
 class Room extends React.Component{
     constructor(props){
         super(props)
-
+        this.state=this.props.state
     }
     
         render(){
@@ -78,6 +78,14 @@ class Room extends React.Component{
                 columns={RowXXX(self)} 
                 bordered size='small'
                 rowKey="uid"
+                onRow={(record)=>{
+                    return{
+                        onMouseEnter:()=>{
+                           self.setState({price:record.price})
+                           console.log(self.state)
+                        }
+                    }
+                }}
                 />
                 {/* <Table>
                     <TableHeader>
