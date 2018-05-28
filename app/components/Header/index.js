@@ -13,11 +13,19 @@ import ActionAndroid from 'material-ui/svg-icons/action/android';
 import FontIcon from 'material-ui/FontIcon';
 import LoginPage from '../../containers/Authentication/LoginPage';
 import SignupPage from '../../containers/Authentication/SignupPage';
+import {DAEMON} from 'utils/constants'
 import { Button } from 'antd';
+// import reducer from './reducer';
+import saga from './saga';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+// import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { makeSelectLogin } from '../../containers/App/selectors';
 class Header extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = { isLogin: false };
   }
   render() {
     return (
@@ -26,7 +34,12 @@ class Header extends React.Component { // eslint-disable-line react/prefer-state
         <HeaderBox>
           <Logo src={'http://fredericgonzalo.com/wp-content/uploads/2013/06/43504-hi-home_away.jpg'} />
           {
-              this.state.isLogin ? (<AuthWrapper><Button type="primary">LOGOUT</Button></AuthWrapper>)
+              this.props.isLogin ? (<AuthWrapper><Button
+                  style={{'marginTop': '20px'}}
+                  icon='logout'
+                  size='large'
+                 onClick={()=>{this.props.logout()}}
+                 type="primary">LOGOUT</Button></AuthWrapper>)
               :(<AuthWrapper><LoginButton /><SignupButton /></AuthWrapper>)
             }
         </HeaderBox>
@@ -57,28 +70,7 @@ margin-top: 16px;
 cursor: pointer;
 `;
 
-
 const LoginButton = () => (
-
-  // <RaisedButton
-  //   onClick={function () {
-  //     window.location.replace('http://localhost:5000/auth/facebook');
-  //   }}
-  //   backgroundColor="#4267b2"
-  //   labelColor="white"
-  //   style={
-  //   {
-  //     marginRight: '16px',
-  //     marginTop: '22px',
-  //     float: 'right',
-
-  //   }
-  //   }
-  //   icon={<FontIcon className="muidocs-icon-custom-github" />}
-  //   target="_blank"
-  //   label="Login with Facebook"
-  //   // secondary
-  // />
   <LoginPage />
 );
 const SignupButton = () => (
@@ -89,4 +81,20 @@ const AuthWrapper = styled.div`
   float: right;
   margin-right: 2px;
 `;
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  isLogin: makeSelectLogin()
+});
+export function mapDispatchToProps(dispatch) {
+  return {
+    logout:()=> dispatch({type:"LOGOUT"})
+  };
+}
+const withConnect = connect(mapStateToProps,mapDispatchToProps);
+
+// const withReducer = injectReducer({ key: 'home', reducer });
+const withSaga = injectSaga({ key: 'logout', saga});
+
+export default compose(
+  withSaga,
+  withConnect,
+)(Header);

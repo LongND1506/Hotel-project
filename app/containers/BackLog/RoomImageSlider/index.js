@@ -4,15 +4,15 @@ import { Carousel } from 'antd';
 import './RIS.css'
 const RoomImageSlider=(props)=>{
     let Img=[];
-    Img=props.roomtype.listimg;
+    Img=props.roomtype.images;
     const ImgList=Img.map((img)=>(
         <div key={img}>
-            <img src={img} style={{'width':'100%'}}/>
+            <img src={img} style={{'width':'450px','height':'300px'}}/>
         </div>
     ))
     return(
         <CarouselWrapper>
-            <RoomType>{props.roomtype.text}</RoomType>
+            <RoomType>{props.roomtype.introduction}</RoomType>
             <Carousel autoplay ref={node => (this.slider = node)}>
                 {ImgList}
             </Carousel>
@@ -28,6 +28,7 @@ const RoomType=styled.div`
     color: #fff;
     background-color: #1f1a1a80;
     padding: 15px;
+    font-weight:bold;
 `
 const CarouselWrapper=styled.div`
     width:450px;
@@ -35,8 +36,9 @@ const CarouselWrapper=styled.div`
     position:relative;
     background:#fff;
     border-radius:5px;
-    height:302px;
+    height:310px;
     border:1px dotted ;
+    margin:auto;
 `
 
 

@@ -5,7 +5,7 @@ import { Form} from 'antd';
 import SignupForm from './SignupForm'
 const FormItem = Form.Item;
 const WrappedNormalSignupForm = Form.create()(SignupForm);
-export default class LoginPage extends React.Component{
+export default class SignupPage extends React.Component{
     constructor(props){
         super(props)
         this.state={

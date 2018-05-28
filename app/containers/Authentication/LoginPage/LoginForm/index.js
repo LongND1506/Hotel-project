@@ -1,9 +1,18 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './index.css'
+import reducer from '../../../App/reducer';
+import saga from './saga';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { makeSelectLogin} from '../../../App/selectors';
+import {DAEMON} from 'utils/constants'
 const FormItem = Form.Item;
 
- export default class LoginForm extends React.Component {
+ class LoginForm extends React.Component {
    constructor(props){
      super(props)
      this.state={}
@@ -12,8 +21,7 @@ const FormItem = Form.Item;
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-       
+        this.props.login(values)
       }
     });
   }
@@ -45,10 +53,28 @@ const FormItem = Form.Item;
           <a className="login-form-forgot" href="">Forgot password</a>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
-          </Button>
-          Or <a href="">register now!</a>
+          </Button>        
         </FormItem>
       </Form>
     );
   }
 }
+export function mapDispatchToProps(dispatch) { 
+  return {
+    login:(account)=> dispatch({type:"LOGIN",account})
+    
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+});
+const withConnect = connect(mapStateToProps,mapDispatchToProps);
+
+// const withReducer = injectReducer({ key: 'global', reducer });
+const withSaga = injectSaga({ key: 'login', saga });
+
+export default compose(
+  // withReducer,
+  withSaga,
+  withConnect,
+)(LoginForm);

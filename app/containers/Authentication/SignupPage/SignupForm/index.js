@@ -1,6 +1,15 @@
 import React from 'react';
 import { Form, Input, Tooltip, Icon, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
 import './index.css'
+import reducer from '../../../App/reducer';
+import saga from './saga';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { makeSelectLogin} from '../../../App/selectors';
+import {DAEMON} from 'utils/constants'
 const FormItem = Form.Item;
 const Option = Select.Option;
 const AutoCompleteOption = AutoComplete.Option;
@@ -28,8 +37,7 @@ const residences = [{
     }],
   }],
 }];
-
-export default class SignupForm extends React.Component {
+ class SignupForm extends React.Component {
   state = {
     confirmDirty: false,
     autoCompleteResult: [],
@@ -38,7 +46,7 @@ export default class SignupForm extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
+        this.props.signup(values)
       }
     });
   }
@@ -169,17 +177,6 @@ export default class SignupForm extends React.Component {
             <Input />
           )}
         </FormItem>
-        {/* <FormItem
-          {...formItemLayout}
-          label="Habitual Residence"
-        >
-          {getFieldDecorator('residence', {
-            initialValue: ['zhejiang', 'hangzhou', 'xihu'],
-            rules: [{ type: 'array', required: true, message: 'Please select your habitual residence!' }],
-          })(
-            <Cascader options={residences} />
-          )}
-        </FormItem> */}
         <FormItem
           {...formItemLayout}
           label="Phone Number"
@@ -190,47 +187,6 @@ export default class SignupForm extends React.Component {
             <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
           )}
         </FormItem>
-        {/* <FormItem
-          {...formItemLayout}
-          label="Website"
-        >
-          {getFieldDecorator('website', {
-            rules: [{ required: true, message: 'Please input website!' }],
-          })(
-            <AutoComplete
-              dataSource={websiteOptions}
-              onChange={this.handleWebsiteChange}
-              placeholder="website"
-            >
-              <Input />
-            </AutoComplete>
-          )}
-        </FormItem>
-        <FormItem
-          {...formItemLayout}
-          label="Captcha"
-          extra="We must make sure that your are a human."
-        >
-          <Row gutter={8}>
-            <Col span={12}>
-              {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
-              })(
-                <Input />
-              )}
-            </Col>
-            <Col span={12}>
-              <Button>Get captcha</Button>
-            </Col>
-          </Row>
-        </FormItem> */}
-        {/* <FormItem {...tailFormItemLayout}>
-          {getFieldDecorator('agreement', {
-            valuePropName: 'checked',
-          })(
-            <Checkbox>I have read the <a href="">agreement</a></Checkbox>
-          )}
-        </FormItem> */}
         <FormItem {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">Register</Button>
         </FormItem>
@@ -238,3 +194,22 @@ export default class SignupForm extends React.Component {
     );
   }
 }
+export function mapDispatchToProps(dispatch) {
+  return {
+    signup:(account)=> dispatch({type:"SIGNUP",account})
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+});
+const withConnect = connect(mapStateToProps,mapDispatchToProps);
+
+// const withReducer = injectReducer({ key: 'gobal', reducer });
+const withSaga = injectSaga({ key: 'signup', saga,mode:DAEMON });
+
+export default compose(
+  // withReducer,
+  withSaga,
+  withConnect,
+)(SignupForm);
+

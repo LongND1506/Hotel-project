@@ -19,6 +19,8 @@ import {
   LOAD_REPOS,
   LOAD_REPOS_SUCCESS,
   LOAD_REPOS_ERROR,
+  LOGIN,
+  LOGIN_SUCCESS
 } from './constants';
 
 /**
@@ -60,5 +62,16 @@ export function repoLoadingError(error) {
     type: LOAD_REPOS_ERROR,
     error,
   };
+}
+export function login(account){
+  return{
+    type: LOGIN,
+    account
+  }
+}
+export function loginSuccess(){
+  return{
+    type: LOGIN_SUCCESS
+  }
 }
 

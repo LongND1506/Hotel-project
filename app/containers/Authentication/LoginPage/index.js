@@ -23,7 +23,7 @@ export default class LoginPage extends React.Component{
     render(){
        return(
             <LoginWrapper>
-                <Button type='primary' size="large" onClick={this.showModal}>LOGIN</Button>
+                <Button type='primary' size="large" onClick={this.showModal} icon='login'>LOGIN</Button>
                 <Modal
                 visible={this.state.visible}
                 width='fit-content'

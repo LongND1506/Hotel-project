@@ -20,6 +20,17 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import HotelListPage from '../HotelListPage';
 import SignupPage from '../Authentication/SignupPage';
+import LoadingPanel from '../../components/LoadingPanel'
+import {Spin,Icon} from 'antd'
+import { makeSelectLoading } from './selectors';
+import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+const LoadingIcon = <Icon type="loading" style={{ fontSize: 50 ,
+  margin: 'auto',
+  position: 'fixed',
+}} spin />;
+
 const AppWrapper = styled.div`
   max-width: 1218px;
   margin: 0 auto;
@@ -36,9 +47,12 @@ const BodyWrapper = styled.div`
 `;
 
 
-export default function App() {
+function App(props) {
   return (
+    <div>
+    { props.loading ?(<LoadingPanel/>):(<div></div>)}
     <AppWrapper>
+      
       <Helmet
         titleTemplate="%s - React.js Boilerplate"
         defaultTitle="React.js Boilerplate"
@@ -59,5 +73,26 @@ export default function App() {
       </BodyWrapper>
       {/* <Footer /> */}
     </AppWrapper>
+    </div>
   );
 }
+export function mapDispatchToProps(dispatch) {
+  return {
+ 
+  };
+}
+
+const mapStateToProps = createStructuredSelector({
+  loading:makeSelectLoading()
+});
+const withConnect = connect(mapStateToProps,mapDispatchToProps);
+
+// const withReducer = injectReducer({ key: 'gobal', reducer });
+// const withSaga = injectSaga({ key: 'signup', saga,mode:DAEMON });
+
+export default compose(
+  // withReducer,
+  // withSaga,
+  withConnect,
+)(App);
+
